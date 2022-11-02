@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ödev 18</title>
+
+    <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+body{
+    
+background: url(space.webp)   center fixed; 
+background-repeat: no-repeat;
+background-position: fixed;
+background-position: bottom;
+background-size: cover;            
+width: 100%;        
+ }
+           
+        
+ #root{
+  width: 500px;
+  height: 100%;
+  background: rgba(255,255,255,1);
+  border-radius: 1rem;
+  position: relative;
+  left:5%;
+  text-align: left;
+  padding:.2rem 2rem;
+  box-shadow: -2px -2px 28px 25px rgba(89,85,189,0.2);
+ }
+ .title{
+    text-align: center;
+    color:333;
+    font-size:2rem;
+    text-transform: uppercase;
+    background: rgb(16, 7, 7);
+    color:#fff;
+    padding: .5rem 0;
+    margin: 2rem .5rem;
+    border-radius: .5rem;
+ }
+ .allNames {
+  font-weight: bolder;
+  font-size:1.1rem;
+  /* color:rgb(49, 8, 90); */
+  font-family: sans-serif;
+  padding-left:10px;
+ }
+ .allCrafts {
+    font-family: sans-serif;
+    font-weight: bold;
+    color:#777;
+    padding-left:10px;
+ }
+ .image{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    text-align: left;
+    margin:.5rem 0;
+ }
+ .wrapper {
+    
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: flex-start;
+    align-items: center;
+    
+    
+ }
+    </style>
+</head>
+<body>
+    <div class="root" id="root"></div>
+
+    <script>
+        let root = document.querySelector('#root');
+        let title = document.createElement('h2');
+        title.classList.add('title')
+        title.innerHTML = "Personal List"
+        root.appendChild(title)
+   
+   let getData = fetch("http://api.open-notify.org/astros.json") ////console.log(getData)
+      
+   let convert = getData.then((result) => result.json()) ; //console.log(convert)
+
+   convert.then((allpersons) => {
+
+   for(i = 1; i < 11; i++) {
+   
+    let personalNames = allpersons.people[i].name
+    let personalCraft = allpersons.people[i].craft
+    
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('wrapper')
+
+    let allImages = document.createElement('img');
+    allImages.src = "https://img.freepik.com/free-vector/astronaut-sitting-planet-waving-hand-cartoon-vector-icon-illustration-science-technology-icon-concept-isolated-premium-vector-flat-cartoon-style_138676-3503.jpg"
+
+    
+    let allNames = document.createElement('p');
+    let allCrafts = document.createElement('p');
+    let horizontal = document.createElement('hr');
+    
+    
+    allNames.classList.add('allNames')
+    allCrafts.classList.add('allCrafts')
+    allImages.classList.add('image')
+    allNames.innerHTML = "Name:" + " " + personalNames;
+    allCrafts.innerHTML = " Location:" + " " + personalCraft;
+    
+    root.appendChild(wrapper);
+    wrapper.appendChild(allImages)
+    wrapper.appendChild(allNames)
+    wrapper.appendChild(allCrafts)
+    root.appendChild(horizontal)
+        
+}
+})
+  
+
+    </script>
+</body>
+</html>
